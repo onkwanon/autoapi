@@ -1,0 +1,68 @@
+import pyautogui as py
+import pandas as pd
+import tkinter as tk
+from tkinter import messagebox
+
+def main():
+    df = pd.read_excel(r'C:\Users\kowong\Desktop\BPM and RM disable and creation\2021-03-19_rearrange.xlsx',engine="openpyxl")
+    list1 = df['20210416_BPM'].tolist()
+    print(list1)
+    a = 0
+    # for i in list1:
+    for i in list1:
+        if type(i) == str:
+            add_lock = None
+
+            while (add_lock == None):
+                try:
+                    add_lock = py.locateOnScreen('ccis_userID.png', confidence=0.9)
+                except Exception as e:
+                    e = e
+            py.moveTo(157, 302, duration=0.3)
+            #b= input()
+            py.click()
+            py.keyDown('ctrl')
+            py.keyDown('a')
+            py.keyUp('a')
+            py.keyUp('ctrl')
+            py.write(i)
+
+            #py.click(add_lock)
+            py.moveTo(1820, 474, duration=0.3)
+            #B= input()
+            py.click()
+
+            #py.click(add_lock)
+            py.moveTo(25, 586, duration=0.3)
+            # B= input()
+            py.click()
+            add_ae = None
+            while (add_ae == None):
+                try:
+
+                    add_ae = py.locateOnScreen('user_status.png', confidence=0.9)
+                except Exception as e:
+                    e = e
+            py.moveTo(add_ae)
+            py.moveTo(496, 797)
+
+            py.click()
+            py.write('p')
+            py.click(add_ae)
+            add_ae = None
+            while (add_ae == None):
+                try:
+                    py.press('end')
+                    add_ae = py.locateOnScreen('CCIS_save02.png', confidence=0.9)
+                except Exception as e:
+                    e = e
+            py.moveTo(1666, 911 ,duration=0.3)
+            py.click()
+
+root = tk.Tk()
+root.withdraw()
+ans = messagebox.askokcancel('CCIS/MSS Account Disable ', 'Comfirm to run?')
+
+print (ans)
+if ans == True:
+    main()
